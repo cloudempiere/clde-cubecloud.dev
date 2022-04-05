@@ -397,15 +397,18 @@ cube(`Warehouse`, {
 
     preAggregations: {
 
-      picker: {
-        type: `rollup`,
-        external: true,
-        measureReferences: [Warehouse.linecount, Warehouse.doccount, Warehouse.qty],
-        dimensionReferences: [Client.ad_client_id, Warehouse.c_docbasetype_name, Warehouse.picker],
-        timeDimensionReference: Warehouse.movementdate,
-        partitionGranularity: `month`,
-        granularity: `day`
-      },
+
+      // DEACTIVATED  2022 apr 05
+
+      // picker: {
+      //   type: `rollup`,
+      //   external: true,
+      //   measureReferences: [Warehouse.linecount, Warehouse.doccount, Warehouse.qty],
+      //   dimensionReferences: [Client.ad_client_id, Warehouse.c_docbasetype_name, Warehouse.picker],
+      //   timeDimensionReference: Warehouse.movementdate,
+      //   partitionGranularity: `month`,
+      //   granularity: `day`
+      // },
 
       // doct: {
       //   type: `rollup`,
