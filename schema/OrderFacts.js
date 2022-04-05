@@ -521,16 +521,18 @@ cube(`Orderfacts`, {
 
     },
 
-    ordercount: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [Orderfacts.ordercount],
-      dimensionReferences: [Client.ad_client_id, Orderfacts.custrep],
-      timeDimensionReference: Orderfacts.dateordered,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      scheduledRefresh: false
-    },
+    // DEACTIVATED  2022 apr 05
+
+    // ordercount: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [Orderfacts.ordercount],
+    //   dimensionReferences: [Client.ad_client_id, Orderfacts.custrep],
+    //   timeDimensionReference: Orderfacts.dateordered,
+    //   partitionGranularity: `month`,
+    //   granularity: `day`,
+    //   scheduledRefresh: false
+    // },
 
     //group by payterm
     amtmonth: {

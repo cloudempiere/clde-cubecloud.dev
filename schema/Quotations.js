@@ -306,34 +306,36 @@ cube(`Quotefacts`, {
 
     //https://statsbot.co/blog/high-performance-data-analytics-with-cubejs-pre-aggregations/
     preAggregations: {
-  
-      salesrep: { //salesrep by source
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [count, linenetamt, linepricelimit, marginamt, qtyquoted],
-      dimensionReferences: [Client.ad_client_id, salesrep],
-      useOriginalSqlPreAggregations: true,
-      timeDimensionReference: datequoted,
-      partitionGranularity: `year`,
-      granularity: `day`,
-      scheduledRefresh: true,
-      indexes: {
-        main_idx: {
-          columns: [Client.ad_client_id]
-        },
-        secondary_idx: {
-          columns: [salesrep]
-        },
-        tercialy_idx: {
-          columns: [datequoted]
-        }
-      }
-    },
+
+    // DEACTIVATED  2022 apr 05   
+
+    //   salesrep: { //salesrep by source
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [count, linenetamt, linepricelimit, marginamt, qtyquoted],
+    //   dimensionReferences: [Client.ad_client_id, salesrep],
+    //   useOriginalSqlPreAggregations: true,
+    //   timeDimensionReference: datequoted,
+    //   partitionGranularity: `year`,
+    //   granularity: `day`,
+    //   scheduledRefresh: true,
+    //   indexes: {
+    //     main_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     secondary_idx: {
+    //       columns: [salesrep]
+    //     },
+    //     tercialy_idx: {
+    //       columns: [datequoted]
+    //     }
+    //   }
+    // },
   
     quoted: { //datequoted
       type: `rollup`,

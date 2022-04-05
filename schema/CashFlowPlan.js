@@ -277,21 +277,23 @@ order by cpl.DateTrx ASC
     //   }
     // },
 
-    balance: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [count, cashamt, balance, monthlysum],
-      dimensionReferences: [Client.ad_client_id, ad_client_id, bpartner, eventtype, chargetype, activity, organization, accounttype],
-      useOriginalSqlPreAggregations: true,
-      timeDimensionReference: Date,
-      partitionGranularity: `year`,
-      granularity: `month`,
-    }
-  }
+  // DEACTIVATED  2022 apr 05
+
+  //   balance: {
+  //     type: `rollup`,
+  //     external: true,
+  //     refreshKey: {
+  //       every: `1 day`,
+  //       incremental: true,
+  //       updateWindow: `7 day`
+  //     },
+  //     measureReferences: [count, cashamt, balance, monthlysum],
+  //     dimensionReferences: [Client.ad_client_id, ad_client_id, bpartner, eventtype, chargetype, activity, organization, accounttype],
+  //     useOriginalSqlPreAggregations: true,
+  //     timeDimensionReference: Date,
+  //     partitionGranularity: `year`,
+  //     granularity: `month`,
+  //   }
+  // }
 
 });
