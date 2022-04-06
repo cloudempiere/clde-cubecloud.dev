@@ -39,17 +39,17 @@ cube(`Client`, {
   },
 
   preAggregations: {
-    // main: {
-    //   type: `rollup`,
-    //   external: true,
-    //   measureReferences: [count],
-    //   dimensionReferences: [Client.ad_client_id, ad_client_name],
-    //   indexes: {
-    //     ad_client_id: {
-    //       columns: [Client.ad_client_id]
-    //     }
-    //   }
-    // }
+    main: {
+      type: `rollup`,
+      external: true,
+      measureReferences: [count],
+      dimensionReferences: [Client.ad_client_id, ad_client_name],
+      indexes: {
+        ad_client_id: {
+          columns: [Client.ad_client_id]
+        }
+      }
+    }
   }
 
 });
