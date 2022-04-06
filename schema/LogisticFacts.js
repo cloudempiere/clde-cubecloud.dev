@@ -53,11 +53,11 @@ cube(`Logisticfacts`, {
         ELSE 'false'  END as isFreightPlanned,
       io.salesrep_id,
       io.c_bpartner_id,
-      CASE WHEN io.IsDropShip='Y' THEN io.DropShip_Location_ID
+      CASE WHEN io.IsDropShip='Y' THEN io.dropship_location_id
       ELSE io.c_bpartner_location_id END as c_bpartner_location_id,
       CASE WHEN io.isdropship='Y' THEN 'true'
       ELSE 'false' END as isdropship,
-      io.DropShip_Location_ID,
+      io.dropship_location_id,
       ds.name as c_docstatus_name,
       COALESCE(dr.lastname,'Empty') as  driver_name,
       CASE 
@@ -107,7 +107,7 @@ cube(`Logisticfacts`, {
         },
         Dropshipcustomers: {
           relationship: `belongsTo`,
-          sql: `${CUBE}.DropShip_Location_ID = ${Dropshipcustomers}.c_bpartner_location_id`
+          sql: `${CUBE}.dropship_location_id = ${Dropshipcustomers}.c_bpartner_location_id`
         }
         // Shipprice: {
         //   relationship: `hasOne`,

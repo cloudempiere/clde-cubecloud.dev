@@ -99,7 +99,7 @@ cube(`Orderfacts`, {
     },
     Dropshipcustomers: {
       relationship: `hasMany`,
-      sql: `${CUBE}.DropShip_BPartner_ID = ${Dropshipcustomers}.c_bpartner_id`
+      sql: `${CUBE}.dropship_bpartner_id = ${Dropshipcustomers}.c_bpartner_id`
     },
     Product: {
       relationship: `hasMany`,
