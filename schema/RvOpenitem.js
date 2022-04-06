@@ -476,9 +476,6 @@ WHERE ispaid ='N' AND ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')}
         },
         secondary_idx: {
           columns: [Client.ad_client_id, salesrep]
-        },
-        tercialy_idx: {
-          columns: [docdate]
         }
       }
     }
