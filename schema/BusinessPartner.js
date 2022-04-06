@@ -230,26 +230,22 @@ cube(`Businesspartner`, {
       granularity: `day`
     },
 
-    // def: {
-    //   type: `rollup`,
-    //   external: true,
-    //   // refreshKey: {
-    //   //   every: `1 day`,
-    //   //   incremental: false,
-    //   //   updateWindow: `7 day`
-    //   // },
-    //   measureReferences: [count],
-    //   dimensionReferences: [Client.ad_client_id, ad_org_id, c_bpartner_id, c_bpartner_name, value, region, contactperson, bpgroup],
-    //   timeDimensionReference: c_bpartner_created,
-    //   granularity: `day`,
-    //   indexes: {
-    //     ad_client_idx: {
-    //       columns: [Client.ad_client_id]
-    //     },
-    //     c_bpartner_idx: {
-    //       columns: [c_bpartner_id]
-    //     }
-    //   }
-    // }
+    def: {
+      type: `rollup`,
+      external: true,
+      measureReferences: [Businesspartner.count],
+      dimensionReferences: [Client.ad_client_id, Businesspartner.ad_org_id, Businesspartner.c_bpartner_id, Businesspartner.c_bpartner_name, 
+        Businesspartner.value, Businesspartner.region, Businesspartner.contactperson, Businesspartner.bpgroup],
+      timeDimensionReference: Businesspartner.c_bpartner_created,
+      granularity: `day`,
+      // indexes: {
+      //   ad_client_idx: {
+      //     columns: [Client.ad_client_id]
+      //   },
+      //   c_bpartner_idx: {
+      //     columns: [c_bpartner_id]
+      //   }
+      // }
+    }
   }
 });
