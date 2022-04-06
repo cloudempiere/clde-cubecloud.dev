@@ -440,6 +440,16 @@ cube(`Orderfacts`, {
   },
 
   //https://statsbot.co/blog/high-performance-data-analytics-with-cubejs-pre-aggregations/
-  preAggregations: {   
+  preAggregations: {  
+    linecnt: {
+      type: `rollup`,
+      external: true,
+      measureReferences: [Orderfacts.linecount],
+      dimensionReferences: [Client.ad_client_id, Orderfacts.custrep, Orderfacts.issotrx],
+      timeDimensionReference: Orderfacts.dateordered,
+      partitionGranularity: `month`,
+      granularity: `day`,
+      // scheduledRefresh: true
+    }, 
   }
 });
