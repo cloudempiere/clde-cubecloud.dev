@@ -6,4 +6,18 @@
 // @cubejs-backend/*-driver packages.
 
 module.exports = {
+    contextToAppId: ({ securityContext }) =>
+        `CUBEJS_APP_${securityContext.ad_client_id}`,
+
+    queryRewrite: (query, { securityContext }) => {
+        const context = securityContext;
+        if (context.ad_client_id) {
+          query.filters.push({
+            member: 'Client.ad_client_id',
+            operator: 'equals',
+            values: [context.ad_client_id],
+          });
+        }
+        return query;
+      },
 };
