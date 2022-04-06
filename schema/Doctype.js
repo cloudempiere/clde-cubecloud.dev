@@ -72,7 +72,7 @@ cube(`Doctype`, {
       type: `rollup`,
       external: true,
       measureReferences: [count],
-      dimensionReferences: [Bank.c_doctype_id],
+      dimensionReferences: [Doctype.c_doctype_id],
       indexes: {
         c_doctype_idx: {
           columns: [Doctype.c_doctype_id]
