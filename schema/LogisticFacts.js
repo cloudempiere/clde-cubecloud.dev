@@ -353,30 +353,30 @@ cube(`Logisticfacts`, {
     //   scheduledRefresh: false      
     // },
 
-    def: {
-      type: `rollup`,
-      external: true,
-      // refreshKey: {
-      //   every: `1 day`,
-      //   incremental: true,
-      //   updateWindow: `7 day`
-      // },
-      measureReferences: [shipmentcount, freightstopunloads, freightlinenetamt, freightweight],
-      dimensionReferences: [Client.ad_client_id, ad_org_id, driver_name, shippingregion, isshipped, c_docbasetype_name, documenttype, city, deliveryviarule, issotrx, bpartner, pickuptypes, m_shipper_name ],
-      useOriginalSqlPreAggregations: true,
-      timeDimensionReference: shipdate,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      //scheduledRefresh: false,
-      indexes: {
-        main_idx: {
-          columns: [Client.ad_client_id]
-        },
-        secondary_idx: {
-          columns: [shipdate]
-        }
-      }
-    }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   // refreshKey: {
+    //   //   every: `1 day`,
+    //   //   incremental: true,
+    //   //   updateWindow: `7 day`
+    //   // },
+    //   measureReferences: [shipmentcount, freightstopunloads, freightlinenetamt, freightweight],
+    //   dimensionReferences: [Client.ad_client_id, ad_org_id, driver_name, shippingregion, isshipped, c_docbasetype_name, documenttype, city, deliveryviarule, issotrx, bpartner, pickuptypes, m_shipper_name ],
+    //   useOriginalSqlPreAggregations: true,
+    //   timeDimensionReference: shipdate,
+    //   partitionGranularity: `month`,
+    //   granularity: `day`,
+    //   //scheduledRefresh: false,
+    //   indexes: {
+    //     main_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     secondary_idx: {
+    //       columns: [shipdate]
+    //     }
+    //   }
+    // }
 
   }
 

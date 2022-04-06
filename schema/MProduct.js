@@ -122,28 +122,28 @@ cube(`Product`, {
 //if no dimension, then no m_product_id, if no measure then no data at all
   // all indexes must be added as hidden dimensions then added to dimensionReference
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 hour`,
-        incremental: false,
-        updateWindow: `7 day`
-      },
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, m_product_id, m_product_category_id, name, categoryname, ispurchased, isactive, value, producttype, m_product_abcanalysisgroup, ismanufactured],
-      indexes: {
-        ad_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        m_product_idx: {
-          columns: [m_product_id]
-        },
-        m_product_category_idx: {
-          columns: [m_product_category_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 hour`,
+    //     incremental: false,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, m_product_id, m_product_category_id, name, categoryname, ispurchased, isactive, value, producttype, m_product_abcanalysisgroup, ismanufactured],
+    //   indexes: {
+    //     ad_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     m_product_idx: {
+    //       columns: [m_product_id]
+    //     },
+    //     m_product_category_idx: {
+    //       columns: [m_product_category_id]
+    //     }
+    //   }
+    // }
   },
 
 });

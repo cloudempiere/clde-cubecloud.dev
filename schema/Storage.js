@@ -133,31 +133,31 @@ joins: {
   },
 
   preAggregations: {
-    balance: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [movementqty, qtylocbal],
-      dimensionReferences: [Client.ad_client_id, m_product_id],
-      timeDimensionReference: movementdate,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      indexes: {
-        main_idx: {
-          columns: [Client.ad_client_id]
-        },
-        m_product_idx: {
-          columns: [m_product_id]
-        },
-        movementdate_idx: {
-          columns: [movementdate]
-        }
-      }
-    }
+    // balance: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [movementqty, qtylocbal],
+    //   dimensionReferences: [Client.ad_client_id, m_product_id],
+    //   timeDimensionReference: movementdate,
+    //   partitionGranularity: `month`,
+    //   granularity: `day`,
+    //   indexes: {
+    //     main_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     m_product_idx: {
+    //       columns: [m_product_id]
+    //     },
+    //     movementdate_idx: {
+    //       columns: [movementdate]
+    //     }
+    //   }
+    // }
   }
 
 });

@@ -171,20 +171,20 @@ cube(`Factacct`, {
     // },
 
 
-    def: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [amtacctdr, amtacctcr, netamt, openingbalance, acctbalance],
-      dimensionReferences: [Client.ad_client_id, ad_org_id, c_acctschema_id, accounttype, account, c_elementvalue_name, c_elementvalue_acctype_name],
-      timeDimensionReference: dateacct,
-      partitionGranularity: `month`,
-      granularity: `day`,
-     }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [amtacctdr, amtacctcr, netamt, openingbalance, acctbalance],
+    //   dimensionReferences: [Client.ad_client_id, ad_org_id, c_acctschema_id, accounttype, account, c_elementvalue_name, c_elementvalue_acctype_name],
+    //   timeDimensionReference: dateacct,
+    //   partitionGranularity: `month`,
+    //   granularity: `day`,
+    //  }
   }
 });
 

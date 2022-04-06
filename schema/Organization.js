@@ -69,20 +69,20 @@ cube(`Organization`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, Organization.ad_org_id, ad_org_name, tenant],
-      indexes: {
-        ad_org_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        ad_org_idx: {
-          columns: [Organization.ad_org_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, Organization.ad_org_id, ad_org_name, tenant],
+    //   indexes: {
+    //     ad_org_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     ad_org_idx: {
+    //       columns: [Organization.ad_org_id]
+    //     }
+    //   }
+    // }
   }
 
 });

@@ -459,26 +459,26 @@ WHERE ispaid ='N' AND ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')}
     // },
 
     // TODO
-    def: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [grandtotal, openamt, openamtnatural, openitembal, dueamt, pastdueamt, pastdue1_7, pastdue8_30, pastdue31_60, pastdue61_90, pastdue91_180, pastdue181_365, pastdue366plus],
-      dimensionReferences: [Client.ad_client_id, Organization.ad_org_id ],
-      useOriginalSqlPreAggregations: true,
-      indexes: {
-        main_idx: {
-          columns: [Client.ad_client_id, ad_org_id]
-        },
-        secondary_idx: {
-          columns: [Client.ad_client_id, salesrep]
-        }
-      }
-    }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [grandtotal, openamt, openamtnatural, openitembal, dueamt, pastdueamt, pastdue1_7, pastdue8_30, pastdue31_60, pastdue61_90, pastdue91_180, pastdue181_365, pastdue366plus],
+    //   dimensionReferences: [Client.ad_client_id, Organization.ad_org_id ],
+    //   useOriginalSqlPreAggregations: true,
+    //   indexes: {
+    //     main_idx: {
+    //       columns: [Client.ad_client_id, ad_org_id]
+    //     },
+    //     secondary_idx: {
+    //       columns: [Client.ad_client_id, salesrep]
+    //     }
+    //   }
+    // }
 
   }
 });

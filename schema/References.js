@@ -81,23 +81,23 @@ cube(`Reference`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, ad_reference_id, ad_ref_list_id, ad_language, listname, refname],
-      indexes: {
-        ad_user_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        ad_reference_idx: {
-          columns: [ad_reference_id]
-        },
-        ad_reflist_idx: {
-          columns: [ad_ref_list_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, ad_reference_id, ad_ref_list_id, ad_language, listname, refname],
+    //   indexes: {
+    //     ad_user_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     ad_reference_idx: {
+    //       columns: [ad_reference_id]
+    //     },
+    //     ad_reflist_idx: {
+    //       columns: [ad_ref_list_id]
+    //     }
+    //   }
+    // }
   }
   
 });

@@ -65,17 +65,17 @@ cube(`Warehouselayout`, {
   //}
   
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [m_locator_id],
-      indexes: {
-        m_locator_idx: {
-          columns: [m_locator_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [m_locator_id],
+    //   indexes: {
+    //     m_locator_idx: {
+    //       columns: [m_locator_id]
+    //     }
+    //   }
+    // }
   }
 
 });

@@ -437,33 +437,33 @@ cube(`Warehouse`, {
       //   }
       // },
 
-      deep: {
-        type: `rollup`,
-        external: true,
-        refreshKey: {
-          every: `1 day`,
-          incremental: true,
-          updateWindow: `7 day`
-        },
-        measureReferences: [Warehouse.doccount, Warehouse.linecount, Warehouse.qty],
-        dimensionReferences: [Client.ad_client_id, ad_org_id, locator, picker, direction, documenttype, product, prodcategory, bpartner ],
-        useOriginalSqlPreAggregations: true,
-        timeDimensionReference: movementdate,
-        partitionGranularity: `month`,
-        granularity: `day`,
-        scheduledRefresh: false,
-        indexes: {
-          main_idx: {
-            columns: [Client.ad_client_id, ad_org_id]
-          },
-          secondary_idx: {
-            columns: [Client.ad_client_id, picker]
-          },
-          tercialy_idx: {
-            columns: [movementdate]
-          }
-        }
-    }
+    //   deep: {
+    //     type: `rollup`,
+    //     external: true,
+    //     refreshKey: {
+    //       every: `1 day`,
+    //       incremental: true,
+    //       updateWindow: `7 day`
+    //     },
+    //     measureReferences: [Warehouse.doccount, Warehouse.linecount, Warehouse.qty],
+    //     dimensionReferences: [Client.ad_client_id, ad_org_id, locator, picker, direction, documenttype, product, prodcategory, bpartner ],
+    //     useOriginalSqlPreAggregations: true,
+    //     timeDimensionReference: movementdate,
+    //     partitionGranularity: `month`,
+    //     granularity: `day`,
+    //     scheduledRefresh: false,
+    //     indexes: {
+    //       main_idx: {
+    //         columns: [Client.ad_client_id, ad_org_id]
+    //       },
+    //       secondary_idx: {
+    //         columns: [Client.ad_client_id, picker]
+    //       },
+    //       tercialy_idx: {
+    //         columns: [movementdate]
+    //       }
+    //     }
+    // }
   }
   
   });

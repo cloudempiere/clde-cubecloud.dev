@@ -155,17 +155,17 @@ cube(`Forecast`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [m_forecast_id],
-      indexes: {
-        m_forecast_idx: {
-          columns: [m_forecast_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [m_forecast_id],
+    //   indexes: {
+    //     m_forecast_idx: {
+    //       columns: [m_forecast_id]
+    //     }
+    //   }
+    // }
   }
 
 }

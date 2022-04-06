@@ -109,17 +109,17 @@ cube(`Bankstatement`, {
   // }
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [c_bankstatement_id],
-      indexes: {
-        c_bankstatement_idx: {
-          columns: [c_bankstatement_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [c_bankstatement_id],
+    //   indexes: {
+    //     c_bankstatement_idx: {
+    //       columns: [c_bankstatement_id]
+    //     }
+    //   }
+    // }
   }
 
 });

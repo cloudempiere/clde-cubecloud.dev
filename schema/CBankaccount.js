@@ -151,13 +151,13 @@ cube(`Bankaccount`, {
 
 
   preAggregations: {
-    main: {
-    external: true,
-    type: `originalSql`,
-    refreshKey: {
-      sql: `SELECT MAX(updated) FROM c_bankaccount`
-      }
-    }
+    // main: {
+    // external: true,
+    // type: `originalSql`,
+    // refreshKey: {
+    //   sql: `SELECT MAX(updated) FROM c_bankaccount`
+    //   }
+    // }
   }
 
 });

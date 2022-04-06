@@ -72,19 +72,19 @@ cube(`Productcategory`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, m_product_category_id, name],
-      indexes: {
-        ad_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        m_product_category_idx: {
-          columns: [m_product_category_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, m_product_category_id, name],
+    //   indexes: {
+    //     ad_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     m_product_category_idx: {
+    //       columns: [m_product_category_id]
+    //     }
+    //   }
+    // }
   }
 });
