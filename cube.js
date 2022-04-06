@@ -19,5 +19,19 @@ module.exports = {
           });
         }
         return query;
-      },
+    },
+
+    // Context for Sheduler to Update all 
+    scheduledRefreshContexts: async () => [
+        {
+          securityContext: {
+            ad_client_id: 1000026,
+          },
+        },
+        {
+          securityContext: {
+            ad_client_id: 1000034,
+          },
+        },
+    ],
 };
