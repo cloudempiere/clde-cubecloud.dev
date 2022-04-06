@@ -221,14 +221,14 @@ cube(`Businesspartner`, {
 
   preAggregations: {
 
-    // cnt: {
-    //   type: `rollup`,
-    //   external: true,
-    //   measureReferences: [Businesspartner.count],
-    //   dimensionReferences: [Client.ad_client_id, Businesspartner.isCustomer, Businesspartner.salesrep],
-    //   timeDimensionReference: c_bpartner_created,
-    //   granularity: `day`
-    // },
+    cnt: {
+      type: `rollup`,
+      external: true,
+      measureReferences: [Businesspartner.count],
+      dimensionReferences: [Client.ad_client_id, Businesspartner.isCustomer, Businesspartner.salesrep],
+      timeDimensionReference: Businesspartner.c_bpartner_created,
+      granularity: `day`
+    },
 
     // def: {
     //   type: `rollup`,
