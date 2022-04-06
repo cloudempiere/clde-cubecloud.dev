@@ -70,7 +70,7 @@ LEFT JOIN rv_ad_reference_trl atype2 ON ev2.AccountType = atype2.value::bpchar A
 LEFT JOIN rv_ad_reference_trl cflw ON cp.cashflowtype = cflw.value::bpchar AND cflw.ad_reference_id = 53385::NUMERIC AND ${SECURITY_CONTEXT.ad_language.filter('cflw.ad_language')}
 
 
-WHERE ${USER_CONTEXT.ad_client_id.filter('cp.ad_client_id')} AND cpl.isactive='Y' 
+WHERE ${SECURITY_CONTEXT.ad_client_id.filter('cp.ad_client_id')} AND cpl.isactive='Y' 
 order by cpl.DateTrx ASC
 
     `,
