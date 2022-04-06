@@ -238,14 +238,14 @@ cube(`Businesspartner`, {
         Businesspartner.value, Businesspartner.region, Businesspartner.contactperson, Businesspartner.bpgroup],
       timeDimensionReference: Businesspartner.c_bpartner_created,
       granularity: `day`,
-      // indexes: {
-      //   ad_client_idx: {
-      //     columns: [Client.ad_client_id]
-      //   },
-      //   c_bpartner_idx: {
-      //     columns: [c_bpartner_id]
-      //   }
-      // }
+      indexes: {
+        ad_client_idx: {
+          columns: [Client.ad_client_id]
+        },
+        c_bpartner_idx: {
+          columns: [c_bpartner_id]
+        }
+      }
     }
   }
 });
