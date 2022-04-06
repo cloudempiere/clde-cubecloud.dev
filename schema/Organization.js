@@ -9,7 +9,7 @@ cube(`Organization`, {
       o.name as ad_org_name,
       o.isactive
     FROM ad_org o
-    WHERE ${USER_CONTEXT.ad_client_id.filter('o.ad_client_id')}
+    WHERE ${SECURITY_CONTEXT.ad_client_id.filter('o.ad_client_id')}
     AND o.issummary = 'N'::bpchar`,
 
     refreshKey: {

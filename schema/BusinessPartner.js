@@ -72,7 +72,7 @@ cube(`Businesspartner`, {
       LEFT JOIN c_region r ON l.c_region_id = r.c_region_id
       LEFT JOIN c_country cc ON l.c_country_id = cc.c_country_id
       LEFT JOIN c_shippingregion sr ON (sr.c_shippingregion_id=bpl.c_shippingregion_id)
-      WHERE ${USER_CONTEXT.ad_client_id.filter('bp.ad_client_id')}
+      WHERE ${SECURITY_CONTEXT.ad_client_id.filter('bp.ad_client_id')}
     `,
 
     refreshKey: {

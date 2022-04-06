@@ -6,7 +6,7 @@ cube(`Product`, {
   FROM m_product p
   LEFT JOIN M_AttributeInstance ai ON (p.M_AttributeSetInstance_ID=ai.M_AttributeSetInstance_ID) AND ai.M_Attribute_ID=1000105
   LEFT JOIN M_AttributeValue av ON (aV.M_AttributeValue_ID=aI.M_AttributeValue_ID)
-  WHERE ${USER_CONTEXT.ad_client_id.filter('p.ad_client_id')}  
+  WHERE ${SECURITY_CONTEXT.ad_client_id.filter('p.ad_client_id')}  
   
   `,
 

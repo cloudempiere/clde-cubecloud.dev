@@ -8,7 +8,7 @@ cube(`Bank`, {
         b.name, b.routingno
         FROM c_bank b
         WHERE (  
-          ${USER_CONTEXT.ad_client_id.filter('b.ad_client_id')} OR b.ad_client_id=0)`,
+          ${SECURITY_CONTEXT.ad_client_id.filter('b.ad_client_id')} OR b.ad_client_id=0)`,
   
   joins: {
     Client: {

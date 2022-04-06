@@ -23,7 +23,7 @@ cube(`Forecast`, {
   FROM m_forecast f
   JOIN m_forecastline fl ON f.m_forecast_id=fl.m_forecast_id
   JOIN c_period p ON p.c_period_id = fl.c_period_id
-  WHERE ${USER_CONTEXT.ad_client_id.filter('f.ad_client_id')} 
+  WHERE ${SECURITY_CONTEXT.ad_client_id.filter('f.ad_client_id')} 
   AND ${FILTER_PARAMS.Forecast.date.filter('p.startdate')}
   `,
 

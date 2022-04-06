@@ -15,7 +15,7 @@ cube(`Storage`, {
     FROM m_transaction t
     JOIN m_locator l ON l.m_locator_id = t.m_locator_id
     --where t.ad_client_id=11
-    --WHERE ${USER_CONTEXT.ad_client_id.filter('t.ad_client_id')} 
+    --WHERE ${SECURITY_CONTEXT.ad_client_id.filter('t.ad_client_id')} 
     
     where t.ad_client_id=1000036 AND ${FILTER_PARAMS.Storage.date.filter('t.movementdate')} AND ${FILTER_PARAMS.Storage.date.filter('t.m_product_id')}
 

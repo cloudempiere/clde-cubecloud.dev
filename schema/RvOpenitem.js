@@ -81,8 +81,8 @@ LEFT JOIN C_DunningLevel dl ON dl.C_DunningLevel_ID=i.C_DunningLevel_ID
 LEFT JOIN c_acctschema ac ON ac.ad_client_id = i.ad_client_id AND (ac.ad_orgonly_id = i.ad_org_id)
 JOIN c_doctype dt ON i.c_doctype_id = dt.c_doctype_id
 JOIN c_paymentterm p  ON i.c_paymentterm_id = p.c_paymentterm_id
-LEFT JOIN rv_ad_reference_trl rng ON i.docstatus = rng.value::bpchar AND rng.ad_reference_id = 1000388::numeric AND ${USER_CONTEXT.ad_language.filter('rng.ad_language')}
-WHERE ispaid ='N' AND ${USER_CONTEXT.ad_client_id.filter('i.ad_client_id')}
+LEFT JOIN rv_ad_reference_trl rng ON i.docstatus = rng.value::bpchar AND rng.ad_reference_id = 1000388::numeric AND ${SECURITY_CONTEXT.ad_language.filter('rng.ad_language')}
+WHERE ispaid ='N' AND ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')}
   `,
 
   refreshKey: {

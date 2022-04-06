@@ -80,12 +80,12 @@ cube(`Logisticfacts`, {
     LEFT JOIN c_shippingregion srbpl ON (srbpl.c_shippingregion_id=bpl.c_shippingregion_id)
     LEFT JOIN M_ShipperPickupTypes pstio ON (pstio.M_ShipperPickupTypes_ID=io.M_ShipperPickupTypes_ID)
     LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = io.C_Doctype_ID
-    JOIN rv_ad_reference_trl ds ON io.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-    JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
-    JOIN rv_ad_reference_trl dvr ON io.DeliveryViaRule = dvr.value::bpchar AND dvr.ad_reference_id = 152::numeric AND ${USER_CONTEXT.ad_language.filter('dvr.ad_language')}
+    JOIN rv_ad_reference_trl ds ON io.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+    JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
+    JOIN rv_ad_reference_trl dvr ON io.DeliveryViaRule = dvr.value::bpchar AND dvr.ad_reference_id = 152::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dvr.ad_language')}
 
     LEFT JOIN LATERAL (SELECT SUM(ROUND(COALESCE(ol.PriceActual*iol.MovementQty,0), 2)) AS totallines FROM M_InOutLine iol JOIN C_OrderLine ol ON ol.C_OrderLine_ID = iol.C_OrderLine_ID 
-    WHERE iol.M_InOut_ID =io.M_InOut_ID) as prices ON true AND ${USER_CONTEXT.ad_client_id.filter('io.ad_client_id')} AND ${FILTER_PARAMS.Logisticfacts.date.filter('io.shipdate')}
+    WHERE iol.M_InOut_ID =io.M_InOut_ID) as prices ON true AND ${SECURITY_CONTEXT.ad_client_id.filter('io.ad_client_id')} AND ${FILTER_PARAMS.Logisticfacts.date.filter('io.shipdate')}
       `,
 
       refreshKey: {

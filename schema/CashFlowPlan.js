@@ -65,12 +65,12 @@ LEFT JOIN c_elementvalue ev2 ON vc2.account_id = ev2.c_elementvalue_id
 
 LEFT JOIN C_Activity act ON act.C_Activity_ID = COALESCE(cpl.C_Activity_ID, cp.C_Activity_ID)
 
-LEFT JOIN rv_ad_reference_trl atype ON ev.AccountType = atype.value::bpchar AND atype.ad_reference_id = 117::NUMERIC AND ${USER_CONTEXT.ad_language.filter('atype.ad_language')}
-LEFT JOIN rv_ad_reference_trl atype2 ON ev2.AccountType = atype2.value::bpchar AND atype2.ad_reference_id = 117::NUMERIC AND ${USER_CONTEXT.ad_language.filter('atype2.ad_language')}
-LEFT JOIN rv_ad_reference_trl cflw ON cp.cashflowtype = cflw.value::bpchar AND cflw.ad_reference_id = 53385::NUMERIC AND ${USER_CONTEXT.ad_language.filter('cflw.ad_language')}
+LEFT JOIN rv_ad_reference_trl atype ON ev.AccountType = atype.value::bpchar AND atype.ad_reference_id = 117::NUMERIC AND ${SECURITY_CONTEXT.ad_language.filter('atype.ad_language')}
+LEFT JOIN rv_ad_reference_trl atype2 ON ev2.AccountType = atype2.value::bpchar AND atype2.ad_reference_id = 117::NUMERIC AND ${SECURITY_CONTEXT.ad_language.filter('atype2.ad_language')}
+LEFT JOIN rv_ad_reference_trl cflw ON cp.cashflowtype = cflw.value::bpchar AND cflw.ad_reference_id = 53385::NUMERIC AND ${SECURITY_CONTEXT.ad_language.filter('cflw.ad_language')}
 
 
-WHERE ${USER_CONTEXT.ad_client_id.filter('cp.ad_client_id')}
+WHERE ${SECURITY_CONTEXT.ad_client_id.filter('cp.ad_client_id')}
 -- AND ${FILTER_PARAMS.Cashflowplan.date.filter('cpl.datetrx')}
 AND cpl.ad_client_id=1000014 
 --AND cpl.AD_Org_ID=1000082 

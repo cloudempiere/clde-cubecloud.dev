@@ -44,7 +44,7 @@ cube(`Invoicefacts`, {
     JOIN c_doctype dt ON i.c_doctype_id = dt.c_doctype_id
     LEFT JOIN c_charge ch ON il.c_charge_id = ch.c_charge_id 
     LEFT JOIN C_PaymentTerm pt ON i.C_PaymentTerm_ID = pt.C_PaymentTerm_ID
-    WHERE ${USER_CONTEXT.ad_client_id.filter('i.ad_client_id')} AND (i.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
+    WHERE ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')} AND (i.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
     AND ${FILTER_PARAMS.Invoicefacts.date.filter('i.dateinvoiced')}
     `,
 

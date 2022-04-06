@@ -24,8 +24,8 @@ cube(`Factacct`, {
   FROM fact_acct fa
   JOIN c_elementvalue ev ON (fa.account_id=ev.c_elementvalue_id)
   JOIN c_acctschema sch ON (fa.c_acctschema_id=sch.c_acctschema_id)
-  JOIN rv_ad_reference_trl atype ON ev.accounttype = atype.value::bpchar AND atype.ad_reference_id = 117::numeric AND ${USER_CONTEXT.ad_language.filter('atype.ad_language')}
-  WHERE ${USER_CONTEXT.ad_client_id.filter('fa.ad_client_id')} AND ${FILTER_PARAMS.Factacct.date.filter('fa.dateacct')}
+  JOIN rv_ad_reference_trl atype ON ev.accounttype = atype.value::bpchar AND atype.ad_reference_id = 117::numeric AND ${SECURITY_CONTEXT.ad_language.filter('atype.ad_language')}
+  WHERE ${SECURITY_CONTEXT.ad_client_id.filter('fa.ad_client_id')} AND ${FILTER_PARAMS.Factacct.date.filter('fa.dateacct')}
   `,
   
   joins: {
