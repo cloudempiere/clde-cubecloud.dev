@@ -38,8 +38,8 @@ cube(`Warehouse`, {
         LEFT JOIN m_movementline ml ON m.M_Movement_id = ml.M_Movement_id
         LEFT JOIN m_locator loc ON loc.m_locator_id=ml.m_locator_id
         LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = m.C_Doctype_ID
-        JOIN rv_ad_reference_trl ds ON m.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
+        JOIN rv_ad_reference_trl ds ON m.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
       
       UNION ALL
         SELECT 
@@ -81,8 +81,8 @@ cube(`Warehouse`, {
         JOIN M_InOut io ON io.M_InOut_id = iol.M_InOut_id
         LEFT JOIN m_locator loc ON loc.m_locator_id=iol.m_locator_id
         LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = ioc.C_Doctype_ID
-        JOIN rv_ad_reference_trl ds ON ioc.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
+        JOIN rv_ad_reference_trl ds ON ioc.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
         
       UNION ALL
        SELECT 
@@ -120,8 +120,8 @@ cube(`Warehouse`, {
         FROM M_InOut io
         JOIN M_InOutLine iol ON io.M_InOut_id = iol.M_InOut_id
         LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = io.C_Doctype_ID
-        JOIN rv_ad_reference_trl ds ON io.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
+        JOIN rv_ad_reference_trl ds ON io.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
       
       UNION ALL
         SELECT 
@@ -161,8 +161,8 @@ cube(`Warehouse`, {
         JOIN M_ProductionLine pl ON p.M_Production_id = pl.M_Production_id
         LEFT JOIN m_locator loc  ON loc.m_locator_id=p.m_locator_id
         LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = p.C_Doctype_ID
-        JOIN rv_ad_reference_trl ds ON p.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
+        JOIN rv_ad_reference_trl ds ON p.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
       
       UNION ALL
         SELECT 
@@ -202,10 +202,10 @@ cube(`Warehouse`, {
         JOIN M_InventoryLine il ON i.M_Inventory_id = il.M_Inventory_id
         LEFT JOIN m_locator loc ON loc.m_locator_id=il.m_locator_id
         LEFT JOIN c_doctype dt ON dt.C_Doctype_ID = i.C_Doctype_ID
-        JOIN rv_ad_reference_trl ds ON i.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${USER_CONTEXT.ad_language.filter('ds.ad_language')}
-        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${USER_CONTEXT.ad_language.filter('dbt.ad_language')}
+        JOIN rv_ad_reference_trl ds ON i.docstatus = ds.value::bpchar AND ds.ad_reference_id = 131::numeric AND ${SECURITY_CONTEXT.ad_language.filter('ds.ad_language')}
+        JOIN rv_ad_reference_trl dbt ON dt.docbasetype = dbt.value::bpchar AND dbt.ad_reference_id = 183::numeric AND ${SECURITY_CONTEXT.ad_language.filter('dbt.ad_language')}
         ) sq
-        WHERE ${USER_CONTEXT.ad_client_id.filter('ad_client_id')} AND ${FILTER_PARAMS.Warehouse.date.filter('movementdate')}
+        WHERE ${SECURITY_CONTEXT.ad_client_id.filter('ad_client_id')} AND ${FILTER_PARAMS.Warehouse.date.filter('movementdate')}
       `,
   
       refreshKey: {
@@ -437,33 +437,33 @@ cube(`Warehouse`, {
       //   }
       // },
 
-      deep: {
-        type: `rollup`,
-        external: true,
-        refreshKey: {
-          every: `1 day`,
-          incremental: true,
-          updateWindow: `7 day`
-        },
-        measureReferences: [Warehouse.doccount, Warehouse.linecount, Warehouse.qty],
-        dimensionReferences: [Client.ad_client_id, ad_org_id, locator, picker, direction, documenttype, product, prodcategory, bpartner ],
-        useOriginalSqlPreAggregations: true,
-        timeDimensionReference: movementdate,
-        partitionGranularity: `month`,
-        granularity: `day`,
-        scheduledRefresh: false,
-        indexes: {
-          main_idx: {
-            columns: [Client.ad_client_id, ad_org_id]
-          },
-          secondary_idx: {
-            columns: [Client.ad_client_id, picker]
-          },
-          tercialy_idx: {
-            columns: [movementdate]
-          }
-        }
-    }
+    //   deep: {
+    //     type: `rollup`,
+    //     external: true,
+    //     refreshKey: {
+    //       every: `1 day`,
+    //       incremental: true,
+    //       updateWindow: `7 day`
+    //     },
+    //     measureReferences: [Warehouse.doccount, Warehouse.linecount, Warehouse.qty],
+    //     dimensionReferences: [Client.ad_client_id, ad_org_id, locator, picker, direction, documenttype, product, prodcategory, bpartner ],
+    //     useOriginalSqlPreAggregations: true,
+    //     timeDimensionReference: movementdate,
+    //     partitionGranularity: `month`,
+    //     granularity: `day`,
+    //     scheduledRefresh: false,
+    //     indexes: {
+    //       main_idx: {
+    //         columns: [Client.ad_client_id, ad_org_id]
+    //       },
+    //       secondary_idx: {
+    //         columns: [Client.ad_client_id, picker]
+    //       },
+    //       tercialy_idx: {
+    //         columns: [movementdate]
+    //       }
+    //     }
+    // }
   }
   
   });

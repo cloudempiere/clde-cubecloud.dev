@@ -81,8 +81,8 @@ LEFT JOIN C_DunningLevel dl ON dl.C_DunningLevel_ID=i.C_DunningLevel_ID
 LEFT JOIN c_acctschema ac ON ac.ad_client_id = i.ad_client_id AND (ac.ad_orgonly_id = i.ad_org_id)
 JOIN c_doctype dt ON i.c_doctype_id = dt.c_doctype_id
 JOIN c_paymentterm p  ON i.c_paymentterm_id = p.c_paymentterm_id
-LEFT JOIN rv_ad_reference_trl rng ON i.docstatus = rng.value::bpchar AND rng.ad_reference_id = 1000388::numeric AND ${USER_CONTEXT.ad_language.filter('rng.ad_language')}
-WHERE ispaid ='N' AND ${USER_CONTEXT.ad_client_id.filter('i.ad_client_id')}
+LEFT JOIN rv_ad_reference_trl rng ON i.docstatus = rng.value::bpchar AND rng.ad_reference_id = 1000388::numeric AND ${SECURITY_CONTEXT.ad_language.filter('rng.ad_language')}
+WHERE ispaid ='N' AND ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')}
   `,
 
   refreshKey: {
@@ -459,29 +459,26 @@ WHERE ispaid ='N' AND ${USER_CONTEXT.ad_client_id.filter('i.ad_client_id')}
     // },
 
     // TODO
-    def: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [grandtotal, openamt, openamtnatural, openitembal, dueamt, pastdueamt, pastdue1_7, pastdue8_30, pastdue31_60, pastdue61_90, pastdue91_180, pastdue181_365, pastdue366plus],
-      dimensionReferences: [Client.ad_client_id, Organization.ad_org_id ],
-      useOriginalSqlPreAggregations: true,
-      indexes: {
-        main_idx: {
-          columns: [Client.ad_client_id, ad_org_id]
-        },
-        secondary_idx: {
-          columns: [Client.ad_client_id, picker]
-        },
-        tercialy_idx: {
-          columns: [docdate]
-        }
-      }
-    }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [grandtotal, openamt, openamtnatural, openitembal, dueamt, pastdueamt, pastdue1_7, pastdue8_30, pastdue31_60, pastdue61_90, pastdue91_180, pastdue181_365, pastdue366plus],
+    //   dimensionReferences: [Client.ad_client_id, Organization.ad_org_id ],
+    //   useOriginalSqlPreAggregations: true,
+    //   indexes: {
+    //     main_idx: {
+    //       columns: [Client.ad_client_id, ad_org_id]
+    //     },
+    //     secondary_idx: {
+    //       columns: [Client.ad_client_id, salesrep]
+    //     }
+    //   }
+    // }
 
   }
 });

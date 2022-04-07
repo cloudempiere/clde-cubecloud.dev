@@ -72,11 +72,11 @@ cube(`Orderfacts`, {
     LEFT JOIN c_orderstatus stat ON o.c_orderstatus_id = stat.c_orderstatus_id
     LEFT JOIN w_store ws ON o.w_store_id = ws.w_store_id
     
-    LEFT JOIN rv_ad_reference_trl lost ON ol.lostsalesreason = lost.value::bpchar AND lost.ad_reference_id = 1000188::numeric AND ${USER_CONTEXT.ad_language.filter('lost.ad_language')}
-    JOIN rv_ad_reference_trl delrule ON o.deliveryrule = delrule.value::bpchar AND delrule.ad_reference_id = 151::numeric AND ${USER_CONTEXT.ad_language.filter('delrule.ad_language')}
-    JOIN rv_ad_reference_trl invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric AND ${USER_CONTEXT.ad_language.filter('invrule.ad_language')}
-    LEFT JOIN rv_ad_reference_trl linestate ON ol.orderlinestatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric AND ${USER_CONTEXT.ad_language.filter('linestate.ad_language')}
-    WHERE ${USER_CONTEXT.ad_client_id.filter('o.ad_client_id')} AND o.processed='Y' AND isProposal ='N' AND ${FILTER_PARAMS.Orderfacts.date.filter('o.dateordered')}
+    LEFT JOIN rv_ad_reference_trl lost ON ol.lostsalesreason = lost.value::bpchar AND lost.ad_reference_id = 1000188::numeric AND ${SECURITY_CONTEXT.ad_language.filter('lost.ad_language')}
+    JOIN rv_ad_reference_trl delrule ON o.deliveryrule = delrule.value::bpchar AND delrule.ad_reference_id = 151::numeric AND ${SECURITY_CONTEXT.ad_language.filter('delrule.ad_language')}
+    JOIN rv_ad_reference_trl invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric AND ${SECURITY_CONTEXT.ad_language.filter('invrule.ad_language')}
+    LEFT JOIN rv_ad_reference_trl linestate ON ol.orderlinestatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric AND ${SECURITY_CONTEXT.ad_language.filter('linestate.ad_language')}
+    WHERE ${SECURITY_CONTEXT.ad_client_id.filter('o.ad_client_id')} AND o.processed='Y' AND isProposal ='N' AND ${FILTER_PARAMS.Orderfacts.date.filter('o.dateordered')}
   `,
 
   refreshKey: {
@@ -99,7 +99,7 @@ cube(`Orderfacts`, {
     },
     Dropshipcustomers: {
       relationship: `hasMany`,
-      sql: `${CUBE}.DropShip_BPartner_ID = ${Dropshipcustomers}.c_bpartner_id`
+      sql: `${CUBE}.dropship_bpartner_id = ${Dropshipcustomers}.c_bpartner_id`
     },
     Product: {
       relationship: `hasMany`,
@@ -440,277 +440,16 @@ cube(`Orderfacts`, {
   },
 
   //https://statsbot.co/blog/high-performance-data-analytics-with-cubejs-pre-aggregations/
-  preAggregations: {
-
+  preAggregations: {  
     linecnt: {
       type: `rollup`,
       external: true,
-      //  refreshKey: {
-        // every: `1 day`,
-        // incremental: true,
-        // updateWindow: `14 day`
-
-      // sql: `SELECT MAX(created) FROM c_order 2`
-
-      //  },
       measureReferences: [Orderfacts.linecount],
       dimensionReferences: [Client.ad_client_id, Orderfacts.custrep, Orderfacts.issotrx],
       timeDimensionReference: Orderfacts.dateordered,
       partitionGranularity: `month`,
       granularity: `day`,
       // scheduledRefresh: true
-    },
-
-
-    // preAggregationName: {
-    //   type: `rollup`,
-    //   external: true,
-    //   measureReferences: [Orderfacts.ordercount],
-    //   dimensionReferences: [Client.ad_client_id, Orderfacts.custrep],
-    //   timeDimensionReference: Orderfacts.dateordered,
-    //   partitionGranularity: `month`,
-    //   granularity: `day`
-    // }
-
-    mcnt: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-       every: `1 day`,
-       incremental: true,
-       updateWindow: `14 day`
-     },
-      measureReferences: [ordercount],
-      dimensionReferences: [Client.ad_client_id, issotrx],
-      timeDimensionReference: dateordered,
-      partitionGranularity: `year`,
-      granularity: `month`,
-      scheduledRefresh: true
-    },
-
-    dcnt: {
-      type: `rollup`,
-      external: true,
-       refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `14 day`
-      },
-      measureReferences: [ordercount],
-      dimensionReferences: [Client.ad_client_id, issotrx],
-      timeDimensionReference: dateordered,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      scheduledRefresh: true
-    },
-
-    scnt: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `14 day`
-      },
-      measureReferences: [ordercount],
-      dimensionReferences: [Client.ad_client_id, issotrx, ordersource],
-      timeDimensionReference: dateordered,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      scheduledRefresh: false
-
-    },
-
-    // DEACTIVATED  2022 apr 05
-
-    // ordercount: {
-    //   type: `rollup`,
-    //   external: true,
-    //   measureReferences: [Orderfacts.ordercount],
-    //   dimensionReferences: [Client.ad_client_id, Orderfacts.custrep],
-    //   timeDimensionReference: Orderfacts.dateordered,
-    //   partitionGranularity: `month`,
-    //   granularity: `day`,
-    //   scheduledRefresh: false
-    // },
-
-    //group by payterm
-    amtmonth: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `14 day`
-      },
-      measureReferences: [linenetamt],
-      dimensionReferences: [Client.ad_client_id, salesrep, issotrx],
-      timeDimensionReference: dateordered,
-      partitionGranularity: `month`,
-      granularity: `month`,
-      scheduledRefresh: false
-    },
-
-    //group by payterm
-    ptrm: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `14 day`
-      },
-      measureReferences: [linenetamt],
-      dimensionReferences: [Client.ad_client_id, c_paymentterm_name, issotrx],
-      timeDimensionReference: dateordered,
-      partitionGranularity: `month`,
-      granularity: `day`,
-      scheduledRefresh: true
-    },
-
-    slsrp: { //salesrep by source
-    type: `rollup`,
-    external: true,
-    refreshKey: {
-      every: `1 day`,
-      incremental: true,
-      updateWindow: `7 day`
-    },
-    measureReferences: [linecount, linenetamt, linepricelimit, marginamt, qtyordered],
-    dimensionReferences: [Client.ad_client_id, salesrep, ordersource],
-    useOriginalSqlPreAggregations: true,
-    timeDimensionReference: dateordered,
-    partitionGranularity: `month`,
-    granularity: `day`,
-    scheduledRefresh: true,
-    indexes: {
-      main_idx: {
-        columns: [Client.ad_client_id, salesrep, dateordered]
-      },
-      bpartner_idx: {
-        columns: [c_bpartner_id]
-      },
-      bpdropship_idx: {
-        columns: [dropship_bpartner_id]
-      },
-      dateorder_idx: {
-        columns: [dateordered]
-      }
-    }
-  },
-
-  cstrp: { //customer representative by source
-    type: `rollup`,
-    external: true,
-    refreshKey: {
-      every: `1 day`,
-      incremental: true,
-      updateWindow: `7 day`
-      // sql: `SELECT MAX(updated) FROM c_order`
-    },
-    measureReferences: [linecount, linenetamt, linepricelimit, marginamt, qtyordered],
-    dimensionReferences: [Client.ad_client_id, c_bpartner_id, dropship_bpartner_id, custrep, ordersource],
-    useOriginalSqlPreAggregations: true,
-    timeDimensionReference: dateordered,
-    partitionGranularity: `month`,
-    scheduledRefresh: true,
-    granularity: `day`,
-    indexes: {
-      cr_main_idx: {
-        columns: [Client.ad_client_id, custrep, dateordered]
-      },
-      secondary_idx: {
-        columns: [Client.ad_client_id, custrep]
-      },
-      cr_bpartner_idx: {
-        columns: [c_bpartner_id]
-      },
-      cr_bpdropship_idx: {
-        columns: [dropship_bpartner_id]
-      },
-      cr_dateorder_idx: {
-        columns: [dateordered]
-      }
-    }
-  },
-
-  prom: {
-    type: `rollup`,
-    external: true,
-    refreshKey: {
-      every: `1 day`,
-      incremental: true,
-      updateWindow: `7 day`
-    },
-    measureReferences: [linecount, linenetamt, linepricelimit, marginamt, qtyordered],
-    dimensionReferences: [Client.ad_client_id, c_bpartner_id, m_product_id, dropship_bpartner_id, product, prodcategory, salesrep, custrep, shipregion, bpartner, ordersource, orderstatus],
-    timeDimensionReference: dateordered,
-    partitionGranularity: `month`,
-    granularity: `day`,
-    scheduledRefresh: true,
-    useOriginalSqlPreAggregations: true,
-    // indexes: {
-    //   date_idx: {
-    //     columns: [dateordered]
-    //   },
-    //   c_bpartner_idx: {
-    //     columns: [c_bpartner_id]
-    //   },
-    //   dropship_bpartner_idx: {
-    //     columns: [dropship_bpartner_id]
-    //   },
-    //   m_product_idx: {
-    //     columns: [m_product_id]
-    //   }
-    // }
-  },
-
-  def: {
-    type: `rollup`,
-    external: true,
-    refreshKey: {
-      every: `1 day`,
-      incremental: true,
-      updateWindow: `7 day`
-    },
-    measureReferences: [linecount, qtyordered, linepricelimit, linepricelist, linenetamt, linetotalamt, marginamt, discount, margin, markup, fraction],
-    dimensionReferences: [Client.ad_client_id, organization, c_order_id, c_orderline_id, m_product_id, c_bpartner_id, datepromised, dateplanship, bpartner, dropshipname, dropship_bpartner_id, salesrep, custrep, prodcategory, product, shipregion, ordersource, orderstatus, deliveryrule, priority, invoicerule, lostsalesreason, orderlinestatus, c_paymentterm_name],
-    timeDimensionReference: dateordered,
-    partitionGranularity: `month`,
-    granularity: `day`,
-    scheduledRefresh: true,
-    useOriginalSqlPreAggregations: true,
-    // indexes: {
-    //   ad_client_idx: {
-    //     columns: [Client.ad_client_id]
-    //   },
-    //   c_orderline_idx: {
-    //     columns: [c_orderline_id]
-    //   },
-    //   c_bpartner_idx: {
-    //     columns: [c_bpartner_id]
-    //   },
-    //   dropship_bpartner_idx: {
-    //     columns: [dropship_bpartner_id]
-    //   },
-    //   m_product_idx: {
-    //     columns: [m_product_id]
-    //   } 
-    //  }
-    }
-
-      //tmp aggregation start
-
-      // org: {
-      //   type: `originalSql`,
-      //   external: true,
-      //   refreshKey: {
-      //     sql: `SELECT MAX(created) FROM c_orderline`
-      //   },
-      //   external: false,
-      //   scheduledRefresh: true
-      // },
-  
-      //tmp aggregation end
+    }, 
   }
 });

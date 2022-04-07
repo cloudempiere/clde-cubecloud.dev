@@ -69,7 +69,7 @@ cube(`Quotefacts`, {
       JOIN ad_ref_list delrule ON o.deliveryrule = delrule.value::bpchar AND delrule.ad_reference_id = 151::numeric
       JOIN ad_ref_list invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric
       LEFT JOIN ad_ref_list linestate ON ol.OrderLineStatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric
-      WHERE ${USER_CONTEXT.ad_client_id.filter('ol.ad_client_id')}  AND (o.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
+      WHERE ${SECURITY_CONTEXT.ad_client_id.filter('ol.ad_client_id')}  AND (o.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
       AND ${FILTER_PARAMS.Quotefacts.date.filter('o.dateordered')}
     `,
     
@@ -337,49 +337,49 @@ cube(`Quotefacts`, {
     //   }
     // },
   
-    quoted: { //datequoted
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [linecount, count, linenetamt, linepricelimit, marginamt, qtyquoted],
-      dimensionReferences: [Client.ad_client_id, organization, product, prodcategory, salesrep, bpartner, datequoted],
-      timeDimensionReference: datequoted,
-      partitionGranularity: `year`,
-      granularity: `day`,
-      scheduledRefresh: true,
-      useOriginalSqlPreAggregations: true,
-      indexes: {
-        date_idx: {
-          columns: [datequoted]
-        }
-      }
-    },
+    // quoted: { //datequoted
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [linecount, count, linenetamt, linepricelimit, marginamt, qtyquoted],
+    //   dimensionReferences: [Client.ad_client_id, organization, product, prodcategory, salesrep, bpartner, datequoted],
+    //   timeDimensionReference: datequoted,
+    //   partitionGranularity: `year`,
+    //   granularity: `day`,
+    //   scheduledRefresh: true,
+    //   useOriginalSqlPreAggregations: true,
+    //   indexes: {
+    //     date_idx: {
+    //       columns: [datequoted]
+    //     }
+    //   }
+    // },
   
-    promised: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [linecount, count, linenetamt, linepricelimit, marginamt, qtyquoted],
-      dimensionReferences: [Client.ad_client_id, organization, product, prodcategory, salesrep, bpartner, datepromised],
-      timeDimensionReference: datequoted,
-      partitionGranularity: `year`,
-      granularity: `day`,
-      scheduledRefresh: true,
-      useOriginalSqlPreAggregations: true,
-      // indexes: {
-      //   date_idx: {
-      //     columns: [datepromised]
-      //   }
-      // }
-    }
+    // promised: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [linecount, count, linenetamt, linepricelimit, marginamt, qtyquoted],
+    //   dimensionReferences: [Client.ad_client_id, organization, product, prodcategory, salesrep, bpartner, datepromised],
+    //   timeDimensionReference: datequoted,
+    //   partitionGranularity: `year`,
+    //   granularity: `day`,
+    //   scheduledRefresh: true,
+    //   useOriginalSqlPreAggregations: true,
+    //   // indexes: {
+    //   //   date_idx: {
+    //   //     columns: [datepromised]
+    //   //   }
+    //   // }
+    // }
   }
 
   });

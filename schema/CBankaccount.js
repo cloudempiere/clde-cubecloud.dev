@@ -20,8 +20,8 @@ cube(`Bankaccount`, {
        ba.accountno,
        bat.name AS c_bankaccount_type_name
   FROM c_bankaccount ba
-  LEFT JOIN rv_ad_reference_trl bat ON ba.bankaccounttype = bat.value::bpchar AND bat.ad_reference_id = 216::NUMERIC AND ${USER_CONTEXT.ad_language.filter ('bat.ad_language') }
-  WHERE ${USER_CONTEXT.ad_client_id.filter('ba.ad_client_id')}
+  LEFT JOIN rv_ad_reference_trl bat ON ba.bankaccounttype = bat.value::bpchar AND bat.ad_reference_id = 216::NUMERIC AND ${SECURITY_CONTEXT.ad_language.filter ('bat.ad_language') }
+  WHERE ${SECURITY_CONTEXT.ad_client_id.filter('ba.ad_client_id')}
   `,
   
   joins: {
@@ -151,13 +151,13 @@ cube(`Bankaccount`, {
 
 
   preAggregations: {
-    main: {
-    external: true,
-    type: `originalSql`,
-    refreshKey: {
-      sql: `SELECT MAX(updated) FROM c_bankaccount`
-      }
-    }
+    // main: {
+    // external: true,
+    // type: `originalSql`,
+    // refreshKey: {
+    //   sql: `SELECT MAX(updated) FROM c_bankaccount`
+    //   }
+    // }
   }
 
 });

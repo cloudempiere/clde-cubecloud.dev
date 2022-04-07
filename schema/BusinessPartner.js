@@ -72,7 +72,7 @@ cube(`Businesspartner`, {
       LEFT JOIN c_region r ON l.c_region_id = r.c_region_id
       LEFT JOIN c_country cc ON l.c_country_id = cc.c_country_id
       LEFT JOIN c_shippingregion sr ON (sr.c_shippingregion_id=bpl.c_shippingregion_id)
-      WHERE ${USER_CONTEXT.ad_client_id.filter('bp.ad_client_id')}
+      WHERE ${SECURITY_CONTEXT.ad_client_id.filter('bp.ad_client_id')}
     `,
 
     refreshKey: {
@@ -226,21 +226,17 @@ cube(`Businesspartner`, {
       external: true,
       measureReferences: [Businesspartner.count],
       dimensionReferences: [Client.ad_client_id, Businesspartner.isCustomer, Businesspartner.salesrep],
-      timeDimensionReference: c_bpartner_created,
+      timeDimensionReference: Businesspartner.c_bpartner_created,
       granularity: `day`
     },
 
     def: {
       type: `rollup`,
       external: true,
-      // refreshKey: {
-      //   every: `1 day`,
-      //   incremental: false,
-      //   updateWindow: `7 day`
-      // },
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, ad_org_id, c_bpartner_id, c_bpartner_name, value, region, contactperson, bpgroup],
-      timeDimensionReference: c_bpartner_created,
+      measureReferences: [Businesspartner.count],
+      dimensionReferences: [Client.ad_client_id, Businesspartner.ad_org_id, Businesspartner.c_bpartner_id, Businesspartner.c_bpartner_name, 
+        Businesspartner.value, Businesspartner.region, Businesspartner.contactperson, Businesspartner.bpgroup],
+      timeDimensionReference: Businesspartner.c_bpartner_created,
       granularity: `day`,
       indexes: {
         ad_client_idx: {

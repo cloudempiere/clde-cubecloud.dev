@@ -68,17 +68,17 @@ cube(`Doctype`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [Bank.c_doctype_id],
-      indexes: {
-        c_doctype_idx: {
-          columns: [Doctype.c_doctype_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [Doctype.c_doctype_id],
+    //   indexes: {
+    //     c_doctype_idx: {
+    //       columns: [Doctype.c_doctype_id]
+    //     }
+    //   }
+    // }
   }
 
 });

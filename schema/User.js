@@ -55,7 +55,7 @@ cube(`User`, {
   LEFT JOIN c_bpartner bp ON u.c_bpartner_id = bp.c_bpartner_id
   LEFT JOIN c_bpartner_location bploc ON u.c_bpartner_location_id = bploc.c_bpartner_location_id
 
-WHERE ${USER_CONTEXT.ad_client_id.filter('u.ad_client_id')}
+WHERE ${SECURITY_CONTEXT.ad_client_id.filter('u.ad_client_id')}
 `,
 
 refreshKey: {
@@ -141,25 +141,25 @@ refreshKey: {
    //if no dimension, then no ad_user_id, if no measure then no data at all
   // all indexes must be added as hidden dimensions then added to dimensionReference
   preAggregations: {
-    def: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: false,
-        updateWindow: `7 day`
-      },
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, ad_user_id, name, firstname, lastname, value, email, isactive, bpartner, location],
-      indexes: {
-        ad_user_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        ad_user_idx: {
-          columns: [ad_user_id]
-        }
-      }
-    }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: false,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, ad_user_id, name, firstname, lastname, value, email, isactive, bpartner, location],
+    //   indexes: {
+    //     ad_user_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     ad_user_idx: {
+    //       columns: [ad_user_id]
+    //     }
+    //   }
+    // }
   }
   
 });

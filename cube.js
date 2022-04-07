@@ -6,4 +6,32 @@
 // @cubejs-backend/*-driver packages.
 
 module.exports = {
+    contextToAppId: ({ securityContext }) =>
+        `CUBEJS_APP_${securityContext.ad_client_id}`,
+
+    queryRewrite: (query, { securityContext }) => {
+        const context = securityContext;
+        if (context.ad_client_id) {
+          query.filters.push({
+            member: 'Client.ad_client_id',
+            operator: 'equals',
+            values: [context.ad_client_id],
+          });
+        }
+        return query;
+    },
+
+    // Context for Sheduler to Update all 
+    scheduledRefreshContexts: async () => [
+        {
+          securityContext: {
+            ad_client_id: 1000026,
+          },
+        },
+        {
+          securityContext: {
+            ad_client_id: 1000034,
+          },
+        },
+    ],
 };

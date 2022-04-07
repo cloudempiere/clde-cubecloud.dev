@@ -9,7 +9,7 @@ cube(`Warehouselayout`, {
         wh.name as m_warehouse_name
         FROM m_locator l
   left join m_warehouse wh ON (l.m_warehouse_id=wh.m_warehouse_id)
-  WHERE ${USER_CONTEXT.ad_client_id.filter('l.ad_client_id')}`,
+  WHERE ${SECURITY_CONTEXT.ad_client_id.filter('l.ad_client_id')}`,
   
   joins: {
     Client: {
@@ -65,17 +65,17 @@ cube(`Warehouselayout`, {
   //}
   
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [m_locator_id],
-      indexes: {
-        m_locator_idx: {
-          columns: [m_locator_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [m_locator_id],
+    //   indexes: {
+    //     m_locator_idx: {
+    //       columns: [m_locator_id]
+    //     }
+    //   }
+    // }
   }
 
 });

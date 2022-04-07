@@ -8,7 +8,7 @@ cube(`Bank`, {
         b.name, b.routingno
         FROM c_bank b
         WHERE (  
-          ${USER_CONTEXT.ad_client_id.filter('b.ad_client_id')} OR b.ad_client_id=0)`,
+          ${SECURITY_CONTEXT.ad_client_id.filter('b.ad_client_id')} OR b.ad_client_id=0)`,
   
   joins: {
     Client: {
@@ -87,17 +87,17 @@ cube(`Bank`, {
   
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [c_bank_id],
-      indexes: {
-        c_bankstatement_idx: {
-          columns: [c_bank_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [c_bank_id],
+    //   indexes: {
+    //     c_bankstatement_idx: {
+    //       columns: [c_bank_id]
+    //     }
+    //   }
+    // }
   }
 
 

@@ -13,7 +13,7 @@ cube(`Reference`, {
   FROM ad_ref_list_trl  rlt
   JOIN ad_ref_list rl  ON rlt.ad_ref_list_id=rl.ad_ref_list_id
   JOIN ad_reference r ON r.ad_reference_id=rl.ad_reference_id
-  WHERE ${USER_CONTEXT.ad_language.filter('rlt.ad_language')}
+  WHERE ${SECURITY_CONTEXT.ad_language.filter('rlt.ad_language')}
   `,
 
   refreshKey: {
@@ -81,23 +81,23 @@ cube(`Reference`, {
   },
 
   preAggregations: {
-    main: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [count],
-      dimensionReferences: [Client.ad_client_id, ad_reference_id, ad_ref_list_id, ad_language, listname, refname],
-      indexes: {
-        ad_user_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        ad_reference_idx: {
-          columns: [ad_reference_id]
-        },
-        ad_reflist_idx: {
-          columns: [ad_ref_list_id]
-        }
-      }
-    }
+    // main: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [count],
+    //   dimensionReferences: [Client.ad_client_id, ad_reference_id, ad_ref_list_id, ad_language, listname, refname],
+    //   indexes: {
+    //     ad_user_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     ad_reference_idx: {
+    //       columns: [ad_reference_id]
+    //     },
+    //     ad_reflist_idx: {
+    //       columns: [ad_ref_list_id]
+    //     }
+    //   }
+    // }
   }
   
 });

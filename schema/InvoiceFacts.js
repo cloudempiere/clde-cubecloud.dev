@@ -44,7 +44,7 @@ cube(`Invoicefacts`, {
     JOIN c_doctype dt ON i.c_doctype_id = dt.c_doctype_id
     LEFT JOIN c_charge ch ON il.c_charge_id = ch.c_charge_id 
     LEFT JOIN C_PaymentTerm pt ON i.C_PaymentTerm_ID = pt.C_PaymentTerm_ID
-    WHERE ${USER_CONTEXT.ad_client_id.filter('i.ad_client_id')} AND (i.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
+    WHERE ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')} AND (i.docstatus = ANY (ARRAY['CO'::text, 'CL'::text]))
     AND ${FILTER_PARAMS.Invoicefacts.date.filter('i.dateinvoiced')}
     `,
 
@@ -280,48 +280,48 @@ cube(`Invoicefacts`, {
     //   dimensionReferences: [Client.ad_client_id, ad_client_id, issotrx]
     // },
 
-    pterm: {
-      type: `rollup`,
-      external: true,
-      measureReferences: [linenetamt],
-      dimensionReferences: [Client.ad_client_id, c_paymentterm_name, issotrx, dateinvoiced],
-      timeDimensionReference: dateinvoiced,
-      granularity: `day`
-    },
+    // pterm: {
+    //   type: `rollup`,
+    //   external: true,
+    //   measureReferences: [linenetamt],
+    //   dimensionReferences: [Client.ad_client_id, c_paymentterm_name, issotrx, dateinvoiced],
+    //   timeDimensionReference: dateinvoiced,
+    //   granularity: `day`
+    // },
 
-    def: {
-      type: `rollup`,
-      external: true,
-      refreshKey: {
-        every: `1 day`,
-        incremental: true,
-        updateWindow: `7 day`
-      },
-      measureReferences: [linecount, qtyinvoiced, linepricelimit, linepricelist, linenetamt, linetotalamt, marginamt, discount, margin, markup, fraction],
-      dimensionReferences: [Client.ad_client_id, ad_org_id, c_bpartner_id, m_product_id, salesrep_id, ad_org_name, c_invoiceline_id, bpartner, salesrep, prodcategory, product, c_paymentterm_name],
-      useOriginalSqlPreAggregations: true,
-      timeDimensionReference: dateinvoiced,
-      partitionGranularity: `year`,
-      granularity: `day`,
-      scheduledRefresh: false,
-      indexes: {
-        ad_client_idx: {
-          columns: [Client.ad_client_id]
-        },
-        c_bpartner_idx: {
-          columns: [c_bpartner_id]
-        },
-        m_product_idx: {
-          columns: [m_product_id]
-        },
-        salesrep_idx: {
-          columns: [salesrep_id]
-        },
-        dateinvoiced_idx: {
-          columns: [dateinvoiced]
-        }
-      }
-    }
+    // def: {
+    //   type: `rollup`,
+    //   external: true,
+    //   refreshKey: {
+    //     every: `1 day`,
+    //     incremental: true,
+    //     updateWindow: `7 day`
+    //   },
+    //   measureReferences: [linecount, qtyinvoiced, linepricelimit, linepricelist, linenetamt, linetotalamt, marginamt, discount, margin, markup, fraction],
+    //   dimensionReferences: [Client.ad_client_id, ad_org_id, c_bpartner_id, m_product_id, salesrep_id, ad_org_name, c_invoiceline_id, bpartner, salesrep, prodcategory, product, c_paymentterm_name],
+    //   useOriginalSqlPreAggregations: true,
+    //   timeDimensionReference: dateinvoiced,
+    //   partitionGranularity: `year`,
+    //   granularity: `day`,
+    //   scheduledRefresh: false,
+    //   indexes: {
+    //     ad_client_idx: {
+    //       columns: [Client.ad_client_id]
+    //     },
+    //     c_bpartner_idx: {
+    //       columns: [c_bpartner_id]
+    //     },
+    //     m_product_idx: {
+    //       columns: [m_product_id]
+    //     },
+    //     salesrep_idx: {
+    //       columns: [salesrep_id]
+    //     },
+    //     dateinvoiced_idx: {
+    //       columns: [dateinvoiced]
+    //     }
+    //   }
+    // }
   },
 
 });
