@@ -72,10 +72,10 @@ cube(`Orderfacts`, {
     LEFT JOIN c_orderstatus stat ON o.c_orderstatus_id = stat.c_orderstatus_id
     LEFT JOIN w_store ws ON o.w_store_id = ws.w_store_id
     
-    LEFT JOIN rv_ad_reference_trl lost ON ol.lostsalesreason = lost.value::bpchar AND lost.ad_reference_id = 1000188::numeric AND ${SECURITY_CONTEXT.ad_language.filter('lost.ad_language')}
-    JOIN rv_ad_reference_trl delrule ON o.deliveryrule = delrule.value::bpchar AND delrule.ad_reference_id = 151::numeric AND ${SECURITY_CONTEXT.ad_language.filter('delrule.ad_language')}
-    JOIN rv_ad_reference_trl invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric AND ${SECURITY_CONTEXT.ad_language.filter('invrule.ad_language')}
-    LEFT JOIN rv_ad_reference_trl linestate ON ol.orderlinestatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric AND ${SECURITY_CONTEXT.ad_language.filter('linestate.ad_language')}
+    LEFT JOIN rv_ad_reference_trl lost ON ol.lostsalesreason = lost.value::bpchar AND lost.ad_reference_id = 1000188::numeric AND lost.ad_language='sk_SK'
+    JOIN rv_ad_reference_trl delrule ON o.deliveryrule = delrule.value::bpchar AND delrule.ad_reference_id = 151::numeric AND delrule.ad_language='sk_SK'
+    JOIN rv_ad_reference_trl invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric AND invrule.ad_language='sk_SK'
+    LEFT JOIN rv_ad_reference_trl linestate ON ol.orderlinestatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric AND linestate.ad_language='sk_SK'
     WHERE ${SECURITY_CONTEXT.ad_client_id.filter('o.ad_client_id')} AND o.processed='Y' AND isProposal ='N' AND ${FILTER_PARAMS.Orderfacts.date.filter('o.dateordered')}
   `,
 
