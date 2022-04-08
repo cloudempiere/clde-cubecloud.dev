@@ -26,12 +26,8 @@ module.exports = {
         {
           securityContext: {
             ad_client_id: 1000026,
+            ad_language: 'sk_SK'
           },
-        },
-        {
-          securityContext: {
-            ad_client_id: 1000034,
-          },
-        },
+        }
     ],
 };
