@@ -21,7 +21,3 @@ module.exports = {
         return query;
     }
 };
-
-
-https://cloudempiere.cubecloud.dev/deployments/1/pre-aggregations/Businesspartner/def?securityContext=%7B%22ad_client_id%22%3A1000026%2C%22ad_language%22%3A%22sk_SK%22%7D
-https://cloudempiere.cubecloud.dev/deployments/1/pre-aggregations/Orderfacts/linecnt?securityContext=%7B%22ad_client_id%22%3A1000026%2C%22ad_language%22%3A%22sk_SK%22%7D
