@@ -443,7 +443,7 @@ cube(`Orderfacts`, {
   preAggregations: {  
     linecnt: {
       type: `rollup`,
-      external: true,
+      external: false,
       measureReferences: [Orderfacts.linecount],
       dimensionReferences: [Client.ad_client_id, Orderfacts.custrep, Orderfacts.issotrx],
       timeDimensionReference: Orderfacts.dateordered,
