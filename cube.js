@@ -19,15 +19,7 @@ module.exports = {
           });
         }
         return query;
-    },
-
-    // Context for Sheduler to Update all 
-    scheduledRefreshContexts: async () => [
-        {
-          securityContext: {
-          },
-        }
-    ],
+    }
 };
 
 
