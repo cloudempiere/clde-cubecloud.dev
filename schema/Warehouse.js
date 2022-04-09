@@ -208,10 +208,10 @@ cube(`Warehouse`, {
         WHERE ${SECURITY_CONTEXT.ad_client_id.filter('ad_client_id')} AND ${FILTER_PARAMS.Warehouse.date.filter('movementdate')}
       `,
   
-      refreshKey: {
-        every: `5 minute`
-        //sql: `SELECT MAX(created) FROM ?????`
-      },
+      // refreshKey: {
+      //   every: `5 minute`
+      //   //sql: `SELECT MAX(created) FROM ?????`
+      // },
 
     title: `Warehouse`,
     description: `All Client/Tenant related information`,

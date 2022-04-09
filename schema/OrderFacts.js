@@ -81,9 +81,9 @@ cube(`Orderfacts`, {
     limit 100
   `,
 
-  refreshKey: {
-     sql: `SELECT MAX(created) FROM c_order`
-  },
+  // refreshKey: {
+  //    sql: `SELECT MAX(created) FROM c_order`
+  // },
 
 
   joins: {

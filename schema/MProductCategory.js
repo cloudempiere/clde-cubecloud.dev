@@ -2,9 +2,9 @@ cube(`Productcategory`, {
   sql: `SELECT * FROM m_product_category pc
   WHERE ${SECURITY_CONTEXT.ad_client_id.filter('pc.ad_client_id')}`,
 
-  refreshKey: {
-    every: `1 hour`
-  },
+  // refreshKey: {
+  //   every: `1 day`
+  // },
   
   title: `Product Category`,
   description: `Product Categories`,

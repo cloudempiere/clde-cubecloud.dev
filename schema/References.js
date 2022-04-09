@@ -16,9 +16,9 @@ cube(`Reference`, {
   WHERE ${SECURITY_CONTEXT.ad_language.filter('rlt.ad_language')}
   `,
 
-  refreshKey: {
-    every: `1 hour`
-  },
+  // refreshKey: {
+  //   every: `1 hour`
+  // },
   
   joins: {
     Client: {

@@ -58,9 +58,9 @@ cube(`User`, {
 WHERE ${SECURITY_CONTEXT.ad_client_id.filter('u.ad_client_id')}
 `,
 
-refreshKey: {
-  every: `30 minute`
-},
+// refreshKey: {
+//   every: `30 minute`
+// },
   
   joins: {
     Client: {
