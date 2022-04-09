@@ -10,9 +10,9 @@ cube(`Product`, {
   
   `,
 
-  refreshKey: {
-    sql: `SELECT MAX(created) FROM m_product`
- },
+//   refreshKey: {
+//     sql: `SELECT MAX(created) FROM m_product`
+//  },
 
   title: `Product`,
   description: `Product details`,

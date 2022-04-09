@@ -24,9 +24,9 @@ cube(`Storage`, {
     --OR t.M_Product_ID=1116428
 `,
 
-refreshKey: {
-  every: `1 day`
-},
+// refreshKey: {
+//   every: `1 day`
+// },
 
 
 joins: {

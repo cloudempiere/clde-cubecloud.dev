@@ -85,9 +85,9 @@ LEFT JOIN rv_ad_reference_trl rng ON i.docstatus = rng.value::bpchar AND rng.ad_
 WHERE ispaid ='N' AND ${SECURITY_CONTEXT.ad_client_id.filter('i.ad_client_id')}
   `,
 
-  refreshKey: {
-    every: `1 hour`
-  },
+  // refreshKey: {
+  //   every: `1 hour`
+  // },
   
   joins: {
     Client: {

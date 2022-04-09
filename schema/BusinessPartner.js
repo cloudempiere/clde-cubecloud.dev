@@ -75,9 +75,9 @@ cube(`Businesspartner`, {
       WHERE ${SECURITY_CONTEXT.ad_client_id.filter('bp.ad_client_id')}
     `,
 
-    refreshKey: {
-      sql: `SELECT MAX(created) FROM c_bpartner`
-   },
+  //   refreshKey: {
+  //     sql: `SELECT MAX(created) FROM c_bpartner`
+  //  },
 
   
   title: `Bpartner`,

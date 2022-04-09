@@ -88,9 +88,9 @@ cube(`Logisticfacts`, {
     WHERE iol.M_InOut_ID =io.M_InOut_ID) as prices ON true AND ${SECURITY_CONTEXT.ad_client_id.filter('io.ad_client_id')} AND ${FILTER_PARAMS.Logisticfacts.date.filter('io.shipdate')}
       `,
 
-      refreshKey: {
-         sql: `SELECT MAX(created) FROM M_InOut`
-      },
+      // refreshKey: {
+      //    sql: `SELECT MAX(created) FROM M_InOut`
+      // },
 
       joins: {
         Client: {

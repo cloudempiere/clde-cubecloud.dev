@@ -30,9 +30,9 @@ cube(`Session`, {
     LEFT JOIN ad_org o ON s.ad_org_id = o.ad_org_id
   `,
 
-  refreshKey: {
-    sql: `SELECT MAX(created) FROM ad_session`
-  },
+  // refreshKey: {
+  //   sql: `SELECT MAX(created) FROM ad_session`
+  // },
 
   title: `Session`,
   description: `All Session related information`,

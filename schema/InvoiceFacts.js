@@ -48,9 +48,9 @@ cube(`Invoicefacts`, {
     AND ${FILTER_PARAMS.Invoicefacts.date.filter('i.dateinvoiced')}
     `,
 
-    refreshKey: {
-      sql: `SELECT MAX(created) FROM c_invoiceline`
-    },
+    // refreshKey: {
+    //   sql: `SELECT MAX(created) FROM c_invoiceline`
+    // },
 
 
   title: `Invoice`,

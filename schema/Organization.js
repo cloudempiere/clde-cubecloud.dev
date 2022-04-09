@@ -12,9 +12,9 @@ cube(`Organization`, {
     WHERE ${SECURITY_CONTEXT.ad_client_id.filter('o.ad_client_id')}
     AND o.issummary = 'N'::bpchar`,
 
-    refreshKey: {
-      sql: `SELECT MAX(created) FROM ad_org`
-    },
+    // refreshKey: {
+    //   sql: `SELECT MAX(created) FROM ad_org`
+    // },
 
   title: `Organization`,
   description: `All Organization related information`,
