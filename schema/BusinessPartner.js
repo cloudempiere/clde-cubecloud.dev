@@ -227,7 +227,11 @@ cube(`Businesspartner`, {
       measureReferences: [Businesspartner.count],
       dimensionReferences: [Client.ad_client_id, Businesspartner.isCustomer, Businesspartner.salesrep],
       timeDimensionReference: Businesspartner.c_bpartner_created,
-      granularity: `day`
+      granularity: `day`,
+      refreshKey: {
+        every: `1 day`,
+        incremental: true,
+      },
     },
 
     def: {
@@ -238,6 +242,10 @@ cube(`Businesspartner`, {
         Businesspartner.value, Businesspartner.region, Businesspartner.contactperson, Businesspartner.bpgroup],
       timeDimensionReference: Businesspartner.c_bpartner_created,
       granularity: `day`,
+      refreshKey: {
+        every: `1 day`,
+        incremental: true,
+      },
       indexes: {
         ad_client_idx: {
           columns: [Client.ad_client_id]
