@@ -451,6 +451,10 @@ cube(`Orderfacts`, {
       timeDimensionReference: Orderfacts.dateordered,
       partitionGranularity: `month`,
       granularity: `day`,
+      refreshKey: {
+        every: `1 day`,
+        incremental: true,
+      },
       // scheduledRefresh: true
     }, 
   }
