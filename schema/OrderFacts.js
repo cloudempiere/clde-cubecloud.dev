@@ -77,6 +77,8 @@ cube(`Orderfacts`, {
     JOIN rv_ad_reference_trl invrule ON o.invoicerule = invrule.value::bpchar AND invrule.ad_reference_id = 150::numeric AND invrule.ad_language='sk_SK'
     LEFT JOIN rv_ad_reference_trl linestate ON ol.orderlinestatus = linestate.value::bpchar AND linestate.ad_reference_id = 1000116::numeric AND linestate.ad_language='sk_SK'
     WHERE ${SECURITY_CONTEXT.ad_client_id.filter('o.ad_client_id')} AND o.processed='Y' AND isProposal ='N' AND ${FILTER_PARAMS.Orderfacts.date.filter('o.dateordered')}
+
+    limit 100
   `,
 
   refreshKey: {
