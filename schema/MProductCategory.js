@@ -77,6 +77,10 @@ cube(`Productcategory`, {
       external: true,
       measureReferences: [count],
       dimensionReferences: [Client.ad_client_id, m_product_category_id, name],
+      refreshKey: {
+        every: `1 day`,
+        incremental: true,
+      },
       indexes: {
         ad_client_idx: {
           columns: [Client.ad_client_id]
